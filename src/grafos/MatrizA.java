@@ -112,6 +112,21 @@ public class MatrizA {
         
     }
     
+//    public void covMItoMA(int inci[][]){
+//        int i,j,k;
+//        for (i = 1; i <=nl; i++) {
+//            j=1;
+//            while (inci[j][i]==0) {
+//                j=j+1;
+//            }
+//            k=j+1;
+//            while (inci[k][i]==0) {
+//                k=k+1;
+//            }
+//            adya[j][k]=1;
+//            adya[k][j]=1;
+//        }
+//    }
     
     
     

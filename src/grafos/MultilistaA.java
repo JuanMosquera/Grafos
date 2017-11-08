@@ -15,6 +15,30 @@ import matrizdispersa.matrizEnTripletas;
 public class MultilistaA {
     private int n;
     private NodoMultilista vec[];
+
+    public MultilistaA(int n) {
+        this.n = n;
+        vec=new NodoMultilista[n];
+        for (int i = 0; i < n; i++) {
+            vec[i]=null;
+        }
+    }
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
+
+    public NodoMultilista[] getVec() {
+        return vec;
+    }
+
+    public void setVec(NodoMultilista[] vec) {
+        this.vec = vec;
+    }
     
     
     
@@ -33,6 +57,79 @@ public class MultilistaA {
                     vec[j]=x;
                 }
             }
+        }
+    }
+    
+    public void insert(int v1,int v2){
+        NodoMultilista x = new NodoMultilista(v1,v2);
+        
+        x.setLv1(vec[v1]);
+        vec[v1]=x;
+        x.setLv2(vec[v2]);
+        vec[v2]=x;
+//        NodoMultilista aux;
+//        if (vec[v1]==null) {
+//            vec[v1]=x;
+//        } else {
+//            aux=vec[v1];
+//            while (aux.getLv1()!=null) {
+//                aux=aux.getLv1();
+//            }
+//            aux.setLv1(x);
+//        }
+//        
+//        if (vec[v2]==null) {
+//            vec[v2]=x;
+//        } else {
+//            aux=vec[v2];
+//            while (aux.getLv2()!=null) {
+//                aux=aux.getLv2();
+//            }
+//            aux.setLv2(x);
+//        }
+    }
+    
+    
+    public void crear(String[] grap,int ta){
+        String dos[]=new String[2];
+        int a,b;
+        
+        for (int i = 0; i < ta; i++) {
+            dos=grap[i].split(" ");
+            a=Integer.parseInt(dos[0]);
+            b=Integer.parseInt(dos[1]);
+            
+            this.insert(a-1,b-1);
+        }
+        
+    }
+    
+    public void mostrar(){
+        NodoMultilista aux;
+        int mo[][]=new int[n][n];
+        
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                mo[i][j]=0;
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            aux=vec[i];
+            while (aux!=null) {
+                if (i==aux.getV1()) {
+                    mo[i][aux.getV2()]=1;
+                    aux=aux.getLv1();
+                } else {
+                     mo[i][aux.getV1()]=1;
+                    aux=aux.getLv2();
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(mo[i][j]);
+            }
+            System.out.println("");
         }
     }
     

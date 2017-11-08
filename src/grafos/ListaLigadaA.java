@@ -25,6 +25,93 @@ public class ListaLigadaA {
         v=new NodoSimple[n];
     }
     
+    public void iniciar(){
+        for (int i = 0; i < n; i++) {
+            v[i]=null;
+        }
+    }
+    
+    public void insert(int v1,int v2){
+        NodoSimple x=new NodoSimple(v1);
+        NodoSimple y= new NodoSimple(v2);
+        if (v[v1]==null) {
+            v[v1]=y;
+        } else {
+            conectar(v[v1],y,v1);
+        }
+        if (v[v2]==null) {
+            v[v2]=x;
+        } else {
+            conectar(v[v2],x,v2);
+        }
+        
+    }
+    
+    public void conectar(NodoSimple x,NodoSimple y,int a){
+        NodoSimple ant = null;
+        
+        if (x.getLiga()==null) {
+            if ((int)x.getDato()<(int)y.getDato()) {
+                x.setLiga(y);
+            } else {
+                y.setLiga(x);
+                v[a]=y;
+            }
+        } else {
+            while ((int)x.getDato()<(int)y.getDato()&&x.getLiga()!=null) {
+            ant = x;
+            x=x.getLiga();
+            }
+            if (x.getLiga()==null) {
+                x.setLiga(y);
+            } else {
+                y.setLiga(x);
+                x=ant;
+                x.setLiga(y);
+            }
+        }
+    }
+    
+    
+    public void crear(String[] grap,int ta){
+        String dos[]=new String[2];
+        int a,b;
+        
+        for (int i = 0; i < ta; i++) {
+            dos=grap[i].split(" ");
+            a=Integer.parseInt(dos[0]);
+            b=Integer.parseInt(dos[1]);
+            
+            this.insert(a-1,b-1);
+        }
+        
+    }
+    
+    public void mostrar(){
+        for (int i = 0; i < n; i++) {
+            if (v[i]==null) {
+                for (int j = 0; j < n; j++) {
+                    System.out.print(0);
+                }
+                System.out.println("");
+            } else {
+                NodoSimple aux=v[i];
+                
+                for (int j = 0; j < n; j++) {
+                    if (j==(int)aux.getDato()) {
+                        System.out.print(1);
+                        if (aux.getLiga()!=null) {
+                           
+                            aux=aux.getLiga();
+                        }
+                    } else {
+                        System.out.print(0);
+                    }
+                }
+                System.out.println("");
+            }
+        }
+    }
     
     public void covMAtoLA(int adya[][]){
         int i,j;

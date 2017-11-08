@@ -32,11 +32,11 @@ public class Grafos {
 //            Arrays.sort(arr);
 //             int result = minimumAbsoluteDifference(n, arr);
 //            System.out.println(result);
-             MatrizA grafo= new MatrizA(6);
+             MultilistaA grafo= new MultilistaA(5);
 //                    grafo.llenarPrueba();
-            grafo.lis(arr, n);
+            grafo.crear(arr, n);
             grafo.mostrar();
-            grafo.dfs(1);
+            //grafo.dfs(1);
             in.close();
         }catch (Exception e) {
             System.out.println("Invalid character input");

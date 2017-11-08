@@ -5,6 +5,9 @@
  */
 package grafos;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  *
  * @author jfwc1
@@ -12,11 +15,13 @@ package grafos;
 public class MatrizI {
     private int n,nl;
     private int inci[][];
+    private int visitado[];
 
     public MatrizI(int n, int nl) {
         this.n = n;
         this.nl = nl;
         inci=new int[n][nl];
+        visitado=new int[n];
         this.iniciar();
     }
     
@@ -25,6 +30,7 @@ public class MatrizI {
             for (int j = 0; j < nl; j++) {
                 inci[i][j]=0;
             }
+            visitado[i]=0;
         }
     }
     
@@ -81,6 +87,49 @@ public class MatrizI {
         this.inci = inci;
     }
     
+    public void dfs(int v){
+        int i,j;
+        System.out.println(v);
+        visitado[v-1]=1;
+        for (i = 0; i <nl; i++) {
+            if (inci[v-1][i]==1) {
+                for (j = 0; j <n ; j++) {
+                    if (v-1!=j) {
+                        if (inci[j][i]==1) {
+                            if (visitado[j]==0) {
+                                dfs(j+1);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public void bfs(int a){
+        int i,j;
+        Queue<Integer> cola=new LinkedList();
+        visitado[a]=1;
+        cola.add(a);
+        while (!cola.isEmpty()) {
+            a=cola.poll();
+            System.out.println(a);
+            for (i = 1; i <=nl ; i++) {
+                if (inci[a][i]==1) {
+                    for (j = 1; j <=n ; j++) {
+                        if (a!=j) {
+                            if (inci[j][i]==1) {
+                                if (visitado[j]==0) {
+                                    visitado[j]=1;
+                                    cola.add(j);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     public void covMAtoMI(int adya[][]){
         int i,j,k;

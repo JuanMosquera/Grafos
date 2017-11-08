@@ -5,6 +5,8 @@
  */
 package grafos;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import listas.NodoSimple;
 import matrizdispersa.MatrizForma1;
 import matrizdispersa.MatrizForma2;
@@ -19,15 +21,18 @@ import matrizdispersa.matrizEnTripletas;
 public class ListaLigadaA {
     private int n;
     private NodoSimple v[];
+    private int visitado[];
 
     public ListaLigadaA(int n) {
         this.n = n;
         v=new NodoSimple[n];
+        this.iniciar();
     }
     
     public void iniciar(){
         for (int i = 0; i < n; i++) {
             v[i]=null;
+            visitado[i]=0;
         }
     }
     
@@ -126,6 +131,29 @@ public class ListaLigadaA {
             }
         }
     }
+    
+    public void bfs(int a){
+        int w;
+        NodoSimple p;
+        Queue<Integer> cola=new LinkedList();
+        visitado[a]=1;
+        cola.add(a);
+        while (!cola.isEmpty()) {
+            a=cola.poll();
+            System.out.println(a);
+            p=v[a];
+            while (p!=null) {
+                w=(int) p.getDato();
+                if (visitado[w]==0) {
+                    visitado[w]=1;
+                    cola.add(w);
+                }
+                p=p.getLiga();
+            }
+        }
+        
+    }
+    
     
     //revisar
     public void covMATtoLA(matrizEnTripletas matt){

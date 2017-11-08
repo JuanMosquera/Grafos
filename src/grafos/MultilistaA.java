@@ -5,6 +5,8 @@
  */
 package grafos;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import matrizdispersa.Tripleta;
 import matrizdispersa.matrizEnTripletas;
 
@@ -15,12 +17,16 @@ import matrizdispersa.matrizEnTripletas;
 public class MultilistaA {
     private int n;
     private NodoMultilista vec[];
+    private int visitado[];
 
     public MultilistaA(int n) {
         this.n = n;
         vec=new NodoMultilista[n];
+         visitado=new int[n];
+        
         for (int i = 0; i < n; i++) {
             vec[i]=null;
+            visitado[i]=0;
         }
     }
 
@@ -130,6 +136,52 @@ public class MultilistaA {
                 System.out.print(mo[i][j]);
             }
             System.out.println("");
+        }
+    }
+    
+    public void dfs(int v){
+        int w;
+        NodoMultilista p,q;
+        System.out.println(v);
+        visitado[v-1]=1;
+        p=vec[v-1];
+        while (p!=null) {
+            w=p.getV1();
+            q=p.getLv2();
+            if (w==v-1) {
+                w=p.getV2();
+                q=p.getLv1();
+            }
+            if (visitado[w]==0) {
+                dfs(w+1);
+            }
+            p=q;
+        }
+    }
+    
+    public void bfs(int v){
+        int w;
+        NodoMultilista p,q;
+        Queue<Integer> cola=new LinkedList();
+        visitado[v]=1;
+        cola.add(v);
+        while (!cola.isEmpty()) {
+            v=cola.poll();
+            System.out.println(v);
+            p=vec[v];
+            while (p!=null) {
+                w=p.getV1();
+                q=p.getLv2();
+                if (w==v) {
+                    w=p.getV2();
+                    q=p.getLv1();
+                }
+                if (visitado[w]==0) {
+                    visitado[w]=1;
+                    cola.add(w);
+                }
+                p=q;
+            }
         }
     }
     
